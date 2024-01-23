@@ -14,8 +14,13 @@ import {
   Stack,
 } from '@mantine/core';
 import { Navigate, useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 export function Login(props: PaperProps) {
+  type user= {
+    username:String,
+    password:String
+  }
   const [type, toggle] = useToggle(['login', 'register']);
   const form = useForm({
     initialValues: {
@@ -35,6 +40,9 @@ export function Login(props: PaperProps) {
   });
   const navigate = useNavigate();
   
+  // useEffect(() => {
+  //  localStorage.removeItem('users');
+  // },[]);
 
   return (
     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
@@ -46,17 +54,18 @@ export function Login(props: PaperProps) {
 
       <form onSubmit={form.onSubmit(() => {
         console.log(form.values);
-
         if (type === 'register') {
           // Save the user's data in localStorage when registering
-          const users = JSON.parse(localStorage.getItem('users') as string) || [];
-          users.push(form.values.username);
+          const users:user[] = JSON.parse(localStorage.getItem('users') as string) || [];
+          users.push({username:form.values.username,
+          password:form.values.password});
           localStorage.setItem('users', JSON.stringify(users));
         } else {
           // Check the user's data against localStorage when logging in
           const users = JSON.parse(localStorage.getItem('users') as string) || [];
-          const user = users.includes(form.values.username);
-          if (user) {
+          // const user = users.includes({username:form.values.username,
+          //   password:form.values.password});
+          if (users.some((e:user)=> e.username === form.values.username && e.password === form.values.password)) {
             navigate('/root');
           } else {
             alert('Invalid username or password');
