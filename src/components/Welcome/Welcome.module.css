@@ -1,4 +1,6 @@
 .title {
+  /* justify-content: center; */
+  margin-left: 350px;
   color: light-dark(var(--mantine-color-black), var(--mantine-color-white));
   font-size: rem(100px);
   font-weight: 900;
