@@ -18,24 +18,22 @@ const Authoritarian: React.FC<Props> = () => {
 
 
     
-    // validate: {  
-    //     password: (val) => {
-    //         if (val.length <= 6) {
-    //           return 'Password should include at least 6 characters';
-    //         }
-    //         else if (!/[A-Z]/.test(val)) {
-    //           return 'Password should include at least one uppercase letter';
-    //         }
-    //         else if (!/[a-z]/.test(val)) {
-    //           return 'Password should include at least one lowercase letter';
-    //         }
-    //         else if (!/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/.test(val)) {
-    //           return 'Password should include at least one special character';
-    //         }
-    //         return null;
-    //       },
-
-    // },
+    validate: {  
+      ip: (value: string) => (
+         !/^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(value)?'not valid ip':''),
+      port: (value: string) => {
+        const portRegex = /^(?:[1-9]\d*|0)$/;
+        if (!portRegex.test(value) || Number(value) < 0 || Number(value) > 65535) {
+          return 'Invalid port number';
+        }
+      },
+      notification: (value: string) => {
+        const ipv4Regex = /^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
+        if (!ipv4Regex.test(value)) {
+          return 'Invalid IPv4 address';
+        }
+      },
+    },
   });
   const navigate = useNavigate();
   
@@ -50,7 +48,7 @@ const Authoritarian: React.FC<Props> = () => {
 
       <form onSubmit={form.onSubmit(() => {
         console.log(form.values);
-        navigate('/root');
+        navigate('/root/config');
       })}>
         <Stack>
 
