@@ -2,6 +2,7 @@ import { Button, Paper, Stack, Text, TextInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Camera } from '../ConfigComponents/Config';
 
 interface Props {
   
@@ -41,8 +42,12 @@ const Authoritarian: React.FC<Props> = () => {
       </Text>
 
       <form onSubmit={form.onSubmit(() => {
-        console.log(form.values);
-        navigate('/root/config');
+         const cameras:Camera[] = JSON.parse(localStorage.getItem('cameras') as string) || [];
+         if (cameras.some((e:Camera)=> e.ip === form.values.ip && e.port === form.values.port && e.notification === form.values.notification)) {
+          navigate('/root/config');
+        } else {
+          alert('Invalid deatiles');
+        }
       })}>
         <Stack>
 

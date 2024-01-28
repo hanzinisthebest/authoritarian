@@ -69,7 +69,7 @@ const Navbar: React.FC<Props> = () => {
           </Stack>
         </div>
   
-        <Stack justify="center" gap={0} >
+        <Stack justify="center"  gap={0} >
           <NavbarLink icon={IconSwitchHorizontal} label="Change account" onClick={()=>navigate('/')} />
           <NavbarLink icon={IconLogout} label="Logout" onClick={()=>navigate('/')}/>
         </Stack>
