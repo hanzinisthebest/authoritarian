@@ -1,4 +1,4 @@
-import { Center, Stack, Tooltip, UnstyledButton, rem } from '@mantine/core';
+import { ActionIcon, Center, Stack, Tooltip, UnstyledButton, rem, useComputedColorScheme, useMantineColorScheme } from '@mantine/core';
 import React, { useState } from 'react';
 import {
     IconHome2,
@@ -10,9 +10,12 @@ import {
     IconSettings,
     IconLogout,
     IconSwitchHorizontal,
+    IconSun,
+    IconMoon,
   } from '@tabler/icons-react';
   import classes from './Navbar.module.css';
 import { useNavigate } from 'react-router-dom';
+import cx from 'clsx';
 interface NavbarLinkProps {
     icon: typeof IconHome2;
     label: string;
@@ -44,6 +47,8 @@ const mockdata = [
   ];
 
 const Navbar: React.FC<Props> = () => {
+    const { setColorScheme } = useMantineColorScheme();
+    const computedColorScheme = useComputedColorScheme('light', { getInitialValueInEffect: true });
     const [active, setActive] = useState(0);
     const navigate = useNavigate();
     const links = mockdata.map((link, index) => (
@@ -67,6 +72,15 @@ const Navbar: React.FC<Props> = () => {
           <Stack justify="center" gap={0}>
             {links}
           </Stack>
+          <ActionIcon
+        onClick={() => setColorScheme(computedColorScheme === 'light' ? 'dark' : 'light')}
+        variant="default"
+        size="xl"
+        aria-label="Toggle color scheme"
+      >
+        <IconSun className={cx(classes.icon, classes.light)} stroke={1.5} />
+        <IconMoon className={cx(classes.icon, classes.dark)} stroke={1.5} />
+      </ActionIcon>
         </div>
   
         <Stack justify="center"  gap={0} >

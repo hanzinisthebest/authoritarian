@@ -22,9 +22,9 @@ describe('ConfigComponent', () => {
         const { getByLabelText, getByText } = render(<Config />);
         fireEvent.click(getByText('Add Camera'));
         expect(getByText('Add a new camera')).toBeInTheDocument();
-        const ipInput = getByLabelText('IP *');
-        const portInput = getByLabelText('Port *');
-        const notificationInput = getByLabelText('Notification IP *');
+        const ipInput = getByLabelText('IP');
+        const portInput = getByLabelText('Port');
+        const notificationInput = getByLabelText('Notification IP');
         const addButton = getByText('Add Camera');
   
         // Act
